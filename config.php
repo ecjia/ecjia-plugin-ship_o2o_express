@@ -59,6 +59,7 @@ return array(
 			array('name' => 'item_fee',     'value' => 10),   /* 单件商品的配送价格 */
 			array('name' => 'base_fee',    	'value' => 5),    /* 1000克以内的价格 */
 			array('name' => 'step_fee',     'value' => 5),    /* 续重每1000克增加的价格 */
+			array('name' => 'pay_fee', 'type' => 'text', 'value' => 0), /* 货到付款支付费用  */
 	),
 );
 
