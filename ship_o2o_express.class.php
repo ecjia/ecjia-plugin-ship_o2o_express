@@ -102,13 +102,13 @@ class ship_o2o_express extends ShippingAbstract
     	// 然后通过APi计算距离，
     	// 最后进行距离费用的匹配
     	// 返回费用
-    	if ($this->configure['free_money'] > 0 && $goods_amount >= $this->configure['free_money'])
+    	if ($this->config['free_money'] > 0 && $goods_amount >= $this->config['free_money'])
     	{
     		return 0;
     	}
     	else
     	{
-    		$dist_fee = $this->configure['express'];
+    		$dist_fee = $this->config['express'];
     		array_multisort(array_column($dist_fee, 'express_distance'), SORT_ASC, $dist_fee);
     		foreach ($dist_fee as $val) {
     			if (($val['express_distance'] * 1000) >= $distance) {
