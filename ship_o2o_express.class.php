@@ -97,29 +97,50 @@ class ship_o2o_express extends ShippingAbstract
      */
     public function calculate($goods_weight, $goods_amount, $goods_number)
     {
-        if ($this->configure['free_money'] > 0 && $goods_amount >= $this->configure['free_money'])
-        {
-            return 0;
-        }
-        else
-        {
-            @$fee = $this->configure['base_fee'];
-            $this->configure['fee_compute_mode'] = !empty($this->configure['fee_compute_mode']) ? $this->configure['fee_compute_mode'] : 'by_weight';
+    	// 先获取用户地址，
+    	// 再获取出发地点，
+    	// 然后通过APi计算距离，
+    	// 最后进行距离费用的匹配
+    	// 返回费用
+    	if ($this->configure['free_money'] > 0 && $goods_amount >= $this->configure['free_money'])
+    	{
+    		return 0;
+    	}
+    	else
+    	{
+    		$dist_fee = $this->configure['express'];
+    		array_multisort(array_column($dist_fee, 'express_distance'), SORT_ASC, $dist_fee);
+    		foreach ($dist_fee as $val) {
+    			if (($val['express_distance'] * 1000) >= $distance) {
+    				return $val['express_money'];
+    			}
+    		}
+    		return 99;
+    	}
+    	
+//         if ($this->configure['free_money'] > 0 && $goods_amount >= $this->configure['free_money'])
+//         {
+//             return 0;
+//         }
+//         else
+//         {
+//             @$fee = $this->configure['base_fee'];
+//             $this->configure['fee_compute_mode'] = !empty($this->configure['fee_compute_mode']) ? $this->configure['fee_compute_mode'] : 'by_weight';
 
-            if ($this->configure['fee_compute_mode'] == 'by_number')
-            {
-                $fee = $goods_number * $this->configure['item_fee'];
-            }
-            else
-            {
-                if ($goods_weight > 1)
-                {
-                    $fee += (ceil(($goods_weight - 1))) * $this->configure['step_fee'];
-                }
-            }
+//             if ($this->configure['fee_compute_mode'] == 'by_number')
+//             {
+//                 $fee = $goods_number * $this->configure['item_fee'];
+//             }
+//             else
+//             {
+//                 if ($goods_weight > 1)
+//                 {
+//                     $fee += (ceil(($goods_weight - 1))) * $this->configure['step_fee'];
+//                 }
+//             }
 
-            return $fee;
-        }
+//             return $fee;
+//         }
     }
 
 
