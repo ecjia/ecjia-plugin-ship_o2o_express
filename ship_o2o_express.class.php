@@ -110,12 +110,15 @@ class ship_o2o_express extends ShippingAbstract
     	{
     		$dist_fee = $this->config['express'];
     		array_multisort(array_column($dist_fee, 'express_distance'), SORT_ASC, $dist_fee);
+    		
     		foreach ($dist_fee as $val) {
     			if (($val['express_distance'] * 1000) >= $distance) {
     				return $val['express_money'];
     			}
     		}
-    		return 99;
+    		
+    		$count = count($dist_fee);
+    		return $dist_fee[$count-1]['express_money'];
     	}
     	
 //         if ($this->configure['free_money'] > 0 && $goods_amount >= $this->configure['free_money'])
