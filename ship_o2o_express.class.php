@@ -109,6 +109,7 @@ class ship_o2o_express extends ShippingAbstract
     	else
     	{
     		$dist_fee = $this->config['express'];
+    		$distance = $goods_weight;
     		array_multisort(array_column($dist_fee, 'express_distance'), SORT_ASC, $dist_fee);
     		foreach ($dist_fee as $val) {
     			if (($val['express_distance'] * 1000) >= $distance) {
