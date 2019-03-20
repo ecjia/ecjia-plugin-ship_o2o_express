@@ -49,7 +49,7 @@ Plugin Name: 商家配送
 Plugin URI: http://www.ecjia.com/plugins/ecjia.ship_o2o_express/
 Description: 商家配送，适用于商家自己组建配送团队，方便管理与灵活派遣。
 Author: ECJIA TEAM
-Version: 2.24.0
+Version: 2.30.0
 Author URI: http://www.ecjia.com/
 Plugin App: shipping
 Text Domain: ship_o2o_express
